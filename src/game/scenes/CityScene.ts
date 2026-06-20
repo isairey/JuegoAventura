@@ -9,68 +9,63 @@ export default class CityScene extends Phaser.Scene {
   }
 
   preload() {
-  this.load.image(
-    "player",
-    "https://labs.phaser.io/assets/sprites/car90.png"
-  );
-}
+    // 👤 Monito (persona)
+    this.load.image(
+      "player",
+      "https://labs.phaser.io/assets/sprites/phaser-dude.png"
+    );
+  }
 
-create() {
-  this.cameras.main.setBackgroundColor("#5fb760");
+  create() {
+  this.cameras.main.setBackgroundColor("#6cc46c");
+
+  const size = 800;
+
+  this.physics.world.setBounds(0, 0, size * 10, size * 10);
+  this.cameras.main.setBounds(0, 0, size * 10, size * 10);
 
   const g = this.add.graphics();
 
-  // Césped gigante
-  g.fillStyle(0x5fb760);
-  g.fillRect(0, 0, 4000, 4000);
+  // 🌿 suelo base
+  g.fillStyle(0x6cc46c);
+  g.fillRect(0, 0, size * 10, size * 10);
 
-  // Calles horizontales
-  g.fillStyle(0x2f2f2f);
+  // 🏙️ CREAR GRID DE CIUDAD REAL
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
+      const px = x * size;
+      const py = y * size;
 
-  g.fillRect(0, 700, 4000, 220);
-  g.fillRect(0, 1700, 4000, 220);
-  g.fillRect(0, 2700, 4000, 220);
+      // 🛣️ calles cruzando
+      g.fillStyle(0x2a2a2a);
+      g.fillRect(px + 300, py, 200, size);
+      g.fillRect(px, py + 300, size, 200);
 
-  // Calles verticales
-  g.fillRect(900, 0, 220, 4000);
-  g.fillRect(1900, 0, 220, 4000);
-  g.fillRect(2900, 0, 220, 4000);
+      // 🏢 edificios (bloques)
+      g.fillStyle(0xd6b37a);
 
-  // Edificios
-  g.fillStyle(0xd6b37a);
+      g.fillRect(px + 50, py + 50, 200, 200);
+      g.fillRect(px + 450, py + 50, 200, 200);
+      g.fillRect(px + 50, py + 450, 200, 200);
+      g.fillRect(px + 450, py + 450, 200, 200);
 
-  for (let x = 100; x < 3800; x += 500) {
-    for (let y = 100; y < 3800; y += 500) {
-      g.fillRect(x, y, 250, 250);
+      // 🌳 zonas verdes
+      g.fillStyle(0x4caf50);
+      g.fillRect(px + 250, py + 250, 300, 300);
     }
   }
 
-  // Líneas de carretera
-  g.fillStyle(0xffffff);
+  // 👤 jugador
+  this.player = this.physics.add.sprite(400, 400, "player");
 
-  for (let x = 0; x < 4000; x += 80) {
-    g.fillRect(x, 800, 40, 8);
-    g.fillRect(x, 1800, 40, 8);
-    g.fillRect(x, 2800, 40, 8);
-  }
+  this.player.setScale(1.5);
+  this.player.setCollideWorldBounds(true);
+  this.player.setDepth(10);
 
-  this.physics.world.setBounds(0, 0, 4000, 4000);
-  this.cameras.main.setBounds(0, 0, 4000, 4000);
-
-  this.player = this.physics.add.sprite(
-    500,
-    500,
-    "player"
-  );
-
-  this.player.setScale(2);
-
-  this.cursors =
-    this.input.keyboard.createCursorKeys();
+  this.cursors = this.input.keyboard.createCursorKeys();
 
   this.cameras.main.startFollow(this.player);
-
-  this.cameras.main.setZoom(1.2);
+  this.cameras.main.setZoom(1.5);
 }
 
   update() {
