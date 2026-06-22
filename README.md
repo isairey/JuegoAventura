@@ -112,7 +112,7 @@ npm run dev
 
 <div align="center">
 
-### 🚀 Isai Reyes Peña
+### 🚀 Isai Reyes
 
 Desarrollador Full Stack especializado en **React, TypeScript y sistemas escalables**
 
