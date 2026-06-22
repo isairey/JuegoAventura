@@ -84,10 +84,10 @@ src/
 
 ```bash id="inst1"
 # Clonar repositorio
-git clone https://github.com/tu-usuario/adventure-game
+git clone https://github.com/isairey/JuegoAventura
 
 # Entrar al proyecto
-cd adventure-game
+cd JuegoAventura
 
 # Instalar dependencias
 npm install
